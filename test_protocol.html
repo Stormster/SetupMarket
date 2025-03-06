@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Market Protocol Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .setup-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .warning {
+            background-color: #ffecb3;
+            border-left: 4px solid #ff9800;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        .instructions {
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Setup Market Protocol Test</h1>
+    
+    <div class="instructions">
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Run the <strong>register_protocol.bat</strong> file first to register the protocol</li>
+            <li>Then click on one of the test links below</li>
+            <li>Content Manager should open with the specified setup</li>
+        </ol>
+    </div>
+    
+    <h2>Test Links</h2>
+    
+    <div>
+        <p>Honda Jazz Setup:</p>
+        <a href="setupmarket://setup/47596" class="setup-button">Install Honda Jazz Setup</a>
+    </div>
+    
+    <div>
+        <p>Try another example (replace 12345 with any valid setup ID):</p>
+        <a href="setupmarket://setup/12345" class="setup-button">Install Setup ID 12345</a>
+    </div>
+    
+    <div class="warning">
+        <p><strong>Note:</strong> If clicking these links doesn't work, you may need to:</p>
+        <ol>
+            <li>Make sure Content Manager is installed correctly</li>
+            <li>Run register_protocol.bat with the correct path to Content Manager.exe</li>
+            <li>Ensure the Setup Market addon is installed in Content Manager</li>
+        </ol>
+    </div>
+    
+    <h2>Troubleshooting</h2>
+    <p>If the buttons above don't work, you can try the direct URL format instead:</p>
+    <div>
+        <a href="acmanager://shared?id=eyJuIjogIlNldHVwIGZvciBoazUxX3RyYWZmaWNfaG9uZGFfamF6eiIsICJ0IjogImhrNTFfdHJhZmZpY19ob25kYV9qYXp6IiwgImEiOiAiU2V0dXBNYXJrZXQubmV0IiwgImkiOiAic2V0dXBfNDc1OTYuaW5pIiwgImUiOiAxLCAiZCI6ICJXMEZDVTE" class="setup-button">
+            Direct Honda Jazz Setup (acmanager:// format)
+        </a>
+    </div>
+</body>
+</html> 

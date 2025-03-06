@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Setup Market - CM Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .note {
+            background-color: #f8f9fa;
+            border-left: 4px solid #5bc0de;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Setup Market - Content Manager Integration Test</h1>
+    
+    <p>This page demonstrates how the setupmarket:// URL protocol works with Content Manager.</p>
+    
+    <h2>Test Links</h2>
+    
+    <p>Click on the button below to test the integration. This should open Content Manager and prompt you to save the setup.</p>
+    
+    <p><a href="setupmarket://setup/47596" class="button">Add Setup to Content Manager</a></p>
+    
+    <div class="note">
+        <h3>Note</h3>
+        <p>For this test to work:</p>
+        <ol>
+            <li>The Setup Market addon must be installed in Content Manager</li>
+            <li>The setupmarket:// URL protocol must be registered with Windows</li>
+            <li>Setup ID 47596 must exist on setupmarket.net</li>
+        </ol>
+    </div>
+    
+    <h2>HTML Code Example</h2>
+    
+    <pre><code>&lt;a href="setupmarket://setup/47596"&gt;Add to Content Manager&lt;/a&gt;</code></pre>
+    
+    <p>Replace "47596" with the actual setup ID from your website.</p>
+</body>
+</html> 

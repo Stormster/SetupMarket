@@ -1,0 +1,12 @@
+{
+  "name": "Setup Market Addon",
+  "author": "Setup Market",
+  "version": "1.0.0",
+  "description": "Adds support for setupmarket:// links to easily add setups from setupmarket.net to Content Manager",
+  "url": "https://setupmarket.net",
+  "entry_point": "main.py",
+  "cm_version": "0.8.2276.38322",
+  "can_run_headless": true,
+  "icon": "icon.png",
+  "tags": ["url", "protocols", "setups"]
+} 

@@ -1,0 +1,4 @@
+For a proper implementation, you would need to create an icon.png file (128x128 pixels)
+with a logo representing the Setup Market.
+
+This text file is just a placeholder. A real implementation would have a proper PNG image. 

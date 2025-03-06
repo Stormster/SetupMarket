@@ -1,0 +1,9 @@
+Retro Gaming Font License
+
+This font is used as a placeholder for the Setup Market Addon.
+This file ensures compatibility with Assetto Corsa and Content Manager.
+
+For the actual addon functionality, no specific font is required as it uses
+the standard Assetto Corsa UI elements.
+
+The original Retro Gaming font is copyright of its respective owners. 
