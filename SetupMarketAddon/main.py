@@ -9,9 +9,10 @@ from pathlib import Path
 import ctypes
 import re
 import base64
+import subprocess
 
 ADDON_NAME = "Setup Market"
-ADDON_VERSION = "1.0.0"
+ADDON_VERSION = "1.0.1"
 URL_SCHEME = "setupmarket"
 URL_PROTOCOL = f"{URL_SCHEME}://"
 WEBSITE_URL = "https://setupmarket.net"
@@ -38,18 +39,23 @@ def register_url_protocol():
         # Get the absolute path to the executable
         cm_path = os.path.join(get_cm_dir(), "Content Manager.exe")
         
+        # Get the path to this script
+        script_path = os.path.realpath(__file__)
+        log(f"Script path: {script_path}")
+        
         # Open or create the registry key
         key_path = f"SOFTWARE\\Classes\\{URL_SCHEME}"
         with winreg.CreateKey(winreg.HKEY_CURRENT_USER, key_path) as key:
             winreg.SetValue(key, "", winreg.REG_SZ, "URL:Setup Market Protocol")
             winreg.SetValueEx(key, "URL Protocol", 0, winreg.REG_SZ, "")
             
-            # Set the command to run
+            # Set the command to run this script with the URL parameter
             with winreg.CreateKey(key, "shell\\open\\command") as cmd_key:
-                cmd_value = f'"{cm_path}" "%1"'
+                python_exe = sys.executable
+                cmd_value = f'"{python_exe}" "{script_path}" "%1"'
                 winreg.SetValue(cmd_key, "", winreg.REG_SZ, cmd_value)
         
-        log(f"Registered URL protocol {URL_SCHEME}://")
+        log(f"Registered URL protocol {URL_SCHEME}:// to run this script")
         return True
     except Exception as e:
         log(f"Failed to register URL protocol: {str(e)}")
@@ -172,7 +178,7 @@ def process_url(url):
                 setup_id = match.group(1)
                 log(f"Extracted setup ID: {setup_id}")
                 
-                # Download the setup file
+                # Option 1: Download the setup file and create a shared command
                 setup_data = download_setup_file(setup_id)
                 if setup_data:
                     # Create the CM command
@@ -183,6 +189,14 @@ def process_url(url):
                         # Execute the command by opening the URL
                         os.startfile(cm_command)
                         return True
+                
+                # Option 2: If downloading fails, try the direct acmanager://setup/ format
+                # as a fallback
+                log("Using direct acmanager://setup/ format as fallback")
+                direct_command = f"acmanager://setup/{setup_id}"
+                log(f"Launching direct command: {direct_command}")
+                os.startfile(direct_command)
+                return True
             else:
                 log(f"Could not extract setup ID from URL: {url}")
         else:
@@ -194,13 +208,38 @@ def process_url(url):
         log(traceback.format_exc())
         return False
 
+def update_protocol_registration():
+    """Create or update the registry entries for the protocol handler"""
+    try:
+        # Get path to this script
+        script_path = os.path.abspath(__file__)
+        python_exe = sys.executable
+        
+        # Create registry entries
+        key_path = f"SOFTWARE\\Classes\\{URL_SCHEME}"
+        with winreg.CreateKey(winreg.HKEY_CURRENT_USER, key_path) as key:
+            winreg.SetValue(key, "", winreg.REG_SZ, "URL:Setup Market Protocol")
+            winreg.SetValueEx(key, "URL Protocol", 0, winreg.REG_SZ, "")
+            
+            # Set the command to run this script
+            with winreg.CreateKey(key, "shell\\open\\command") as cmd_key:
+                cmd_value = f'"{python_exe}" "{script_path}" "%1"'
+                winreg.SetValue(cmd_key, "", winreg.REG_SZ, cmd_value)
+        
+        log(f"Updated protocol registration to use this script directly")
+        return True
+    except Exception as e:
+        log(f"Failed to update protocol registration: {str(e)}")
+        log(traceback.format_exc())
+        return False
+
 def main():
     try:
         log(f"\n--- {ADDON_NAME} Addon v{ADDON_VERSION} ---")
         log(f"Args: {sys.argv}")
         
         # Register URL protocol on startup
-        register_url_protocol()
+        update_protocol_registration()
         
         # If a URL was passed, process it
         if len(sys.argv) > 1:
